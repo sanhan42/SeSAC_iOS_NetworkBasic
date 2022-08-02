@@ -7,12 +7,16 @@
 
 import UIKit
 
+import Alamofire
+import SwiftyJSON
+
 // UIButton, UITextField > Action 제공
 // UITextView, UISearchBar, UIPickerView > Action 제공 X
 // - UIControl을 상속받지 않기 떄문.
 
 class TranslateViewController: UIViewController {
     @IBOutlet weak var userInputTextView: UITextView!
+    @IBOutlet weak var resultTextView: UITextView!
     let textViewPlaceholderText = "번역하고 싶은 문장을 작성해보세요."
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +24,36 @@ class TranslateViewController: UIViewController {
         
         userInputTextView.text = textViewPlaceholderText
         userInputTextView.textColor = .lightGray
-        
         userInputTextView.font = UIFont(name: "S-CoreDream-9Black", size: 17)
+        resultTextView.font = UIFont(name:"S-CoreDream-5Medium" , size: 18)
+        resultTextView.layer.cornerRadius = 10
+        resultTextView.contentInset = .init(top: 10, left: 10, bottom: 10, right: 10)
+        
+        requestTranslateDate()
         // Do any additional setup after loading the view.
+    }
+    
+    func requestTranslateDate() {
+        let url = EndPoint.translateURL
+        let header: HTTPHeaders = ["X-Naver-Client-Id":APIKey.NAVER_ID, "X-Naver-Client-Secret":APIKey.NAVER_SECRET]
+        let parameter = ["source": "ko", "target": "en", "text": self.userInputTextView.text ?? ""]
+        // self.userInputTextView.text ?? "입력!!"
+        AF.request(url, method: .post, parameters: parameter, headers: header).validate(statusCode: 200...500).responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+//                self.resultTextView.text = json["message"]["translatedText"].stringValue
+                print(json)
+                let statusCode = response.response?.statusCode ?? 500
+                if statusCode == 200 {
+                    self.resultTextView.text = json["message"]["result"]["translatedText"].stringValue
+                } else {
+                    self.resultTextView.text = json["errorMessage"].stringValue
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
@@ -50,6 +81,8 @@ extension TranslateViewController:UITextViewDelegate {
         if textView.text.isEmpty {
             textView.textColor = .lightGray
             textView.text = textViewPlaceholderText
+            return
         }
+        requestTranslateDate()
     }
 }

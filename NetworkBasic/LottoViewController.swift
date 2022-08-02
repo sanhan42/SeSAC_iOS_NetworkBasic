@@ -16,7 +16,19 @@ class LottoViewController: UIViewController {
     //    @IBOutlet weak var lottoPickerView: UIPickerView!
     var lottoPickerView = UIPickerView()
     
-    let numberList: [Int] = Array(1...1025).reversed()
+    static var lastDrwNo:Int {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "ko")
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        // today의 날짜를 가져올 떄 시.분.초는 0으로 맞춰줌.
+        let today = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())!
+        let baseDay = formatter.date(from: "2022-07-23")! // 22.07.23은 1025회차
+        let inter = today.timeIntervalSince(baseDay)
+        return 1025+Int(floor(inter/86400/7)) // 86400으로 나눠줘서 기준 회차보다 며칠이 지난건지 계산하고, 그것을 다시 7로 나누어서, 몇주가 지난건지 계산..
+    }
+    
+    let numberList: [Int] = Array(1...lastDrwNo).reversed()
     override func viewDidLoad() {
         super.viewDidLoad()
         //numberTextField.textContentType = .oneTimeCode
@@ -32,13 +44,12 @@ class LottoViewController: UIViewController {
             label.textColor = .white
             label.font = .systemFont(ofSize: 17, weight: .heavy)
         }
-        numberTextField.text = "1025회차"
-        requestLotto(1025)
+        requestLotto(numberList[0])
         // Do any additional setup after loading the view.
     }
     
     func requestLotto(_ number:Int) {
-        let url = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=\(number)"
+        let url = "\(EndPoint.lottoURL)&drwNo=\(number)"
         // AF: 200 ~ 299 HTTP Status를 Default로 성공으로 간주. validate(statusCode: 200..<300)
         AF.request(url, method: .get).validate(statusCode: 200..<400).responseJSON { response in
             switch response.result {
@@ -49,6 +60,8 @@ class LottoViewController: UIViewController {
                     label.backgroundColor = UIColor(named: "Color\((json["drwtNo\(i+1)"].intValue-1)/10)")
                 }
                 self.lottoNumLabelList[6].text = json["bnusNo"].stringValue
+                self.lottoNumLabelList[6].backgroundColor = UIColor(named: "Color\((json["bnusNo"].intValue-1)/10)")
+                self.numberTextField.text = json["drwNo"].stringValue + "회자"
             case .failure(let error):
                 print(error)
             }
@@ -65,7 +78,7 @@ extension LottoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return numberList.count
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        numberTextField.text = "\(numberList[row])회차"
+//        numberTextField.text = "\(numberList[row])회차"
         requestLotto(numberList[row])
     }
     

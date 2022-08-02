@@ -42,12 +42,13 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" id="8HR-dh-BXM"/>
                     <connections>
+                        <outlet property="searchBar" destination="EDi-cN-QWN" id="lid-cD-QYO"/>
                         <outlet property="searchTableView" destination="olu-3P-QwB" id="6Ix-7P-tzn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3" y="801"/>
+            <point key="canvasLocation" x="3" y="555"/>
         </scene>
         <!--Lotto-->
         <scene sceneID="f6U-8U-XJO">
@@ -160,7 +161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DuW-Wz-MIb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1374" y="123"/>
+            <point key="canvasLocation" x="1374" y="-226"/>
         </scene>
         <!--Translation-->
         <scene sceneID="6d9-gk-gyg">
@@ -180,11 +181,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2eQ-z2-OyW">
-                                <rect key="frame" x="101" y="466" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2eQ-z2-OyW">
+                                <rect key="frame" x="20" y="344" width="374" height="250"/>
+                                <color key="backgroundColor" red="0.51763856938096131" green="0.7839999794960022" blue="0.94900000095367432" alpha="0.7601785217689363" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="jnk-vc-7wX"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -193,19 +196,24 @@
                         <viewLayoutGuide key="safeArea" id="NfP-YT-mnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="NfP-YT-mnl" firstAttribute="trailing" secondItem="2eQ-z2-OyW" secondAttribute="trailing" constant="20" id="DqG-Yp-ewg"/>
+                            <constraint firstItem="2eQ-z2-OyW" firstAttribute="leading" secondItem="NfP-YT-mnl" secondAttribute="leading" constant="20" id="PLQ-HL-dYu"/>
                             <constraint firstItem="NfP-YT-mnl" firstAttribute="trailing" secondItem="gF5-X4-h3s" secondAttribute="trailing" constant="20" id="U0g-2d-Rah"/>
+                            <constraint firstItem="2eQ-z2-OyW" firstAttribute="top" secondItem="gF5-X4-h3s" secondAttribute="bottom" constant="50" id="WXT-jh-wmB"/>
+                            <constraint firstItem="NfP-YT-mnl" firstAttribute="trailing" secondItem="gF5-X4-h3s" secondAttribute="trailing" constant="20" id="ZYe-kh-cgy"/>
                             <constraint firstItem="gF5-X4-h3s" firstAttribute="top" secondItem="NfP-YT-mnl" secondAttribute="top" constant="50" id="aj7-Xh-bsH"/>
                             <constraint firstItem="gF5-X4-h3s" firstAttribute="leading" secondItem="NfP-YT-mnl" secondAttribute="leading" constant="20" id="lWY-Fh-A5f"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Translation" selectedImage="network" catalog="system" id="VWa-cc-BFX"/>
                     <connections>
+                        <outlet property="resultTextView" destination="2eQ-z2-OyW" id="0AC-9f-82l"/>
                         <outlet property="userInputTextView" destination="gF5-X4-h3s" id="eKw-Tt-S9o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TYb-hW-2KF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1374" y="801"/>
+            <point key="canvasLocation" x="1374" y="554"/>
         </scene>
         <!--Web-->
         <scene sceneID="yJM-lu-stM">
@@ -281,7 +289,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y6d-d7-PRV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3" y="1521"/>
+            <point key="canvasLocation" x="81" y="1521"/>
         </scene>
         <!--Beer-->
         <scene sceneID="Dcj-2s-H9F">
@@ -298,13 +306,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8X-Vt-Ggy">
-                                <rect key="frame" x="40" y="541.5" width="334" height="21"/>
+                                <rect key="frame" x="186.5" y="541.5" width="41.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iT1-Ca-2Qi">
-                                <rect key="frame" x="20" y="592.5" width="374" height="21"/>
+                                <rect key="frame" x="186.5" y="592.5" width="41.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -328,12 +336,13 @@
                             <constraint firstItem="hfp-W3-9UP" firstAttribute="leading" secondItem="xEU-MM-CGe" secondAttribute="leading" constant="20" id="EM7-e1-Nbo"/>
                             <constraint firstItem="a8X-Vt-Ggy" firstAttribute="centerX" secondItem="zWG-ZI-1bA" secondAttribute="centerX" id="GoH-DO-hKf"/>
                             <constraint firstItem="hfp-W3-9UP" firstAttribute="top" secondItem="xEU-MM-CGe" secondAttribute="top" constant="20" id="LyH-3S-4ae"/>
-                            <constraint firstItem="xEU-MM-CGe" firstAttribute="trailing" secondItem="a8X-Vt-Ggy" secondAttribute="trailing" constant="40" id="NIa-1u-esY"/>
-                            <constraint firstItem="iT1-Ca-2Qi" firstAttribute="leading" secondItem="xEU-MM-CGe" secondAttribute="leading" constant="20" id="VGr-gZ-eSi"/>
-                            <constraint firstItem="a8X-Vt-Ggy" firstAttribute="leading" secondItem="xEU-MM-CGe" secondAttribute="leading" constant="40" id="cce-gq-T8P"/>
-                            <constraint firstItem="xEU-MM-CGe" firstAttribute="trailing" secondItem="iT1-Ca-2Qi" secondAttribute="trailing" constant="20" id="d3h-uP-f4f"/>
+                            <constraint firstItem="xEU-MM-CGe" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="a8X-Vt-Ggy" secondAttribute="trailing" id="NIa-1u-esY"/>
+                            <constraint firstItem="iT1-Ca-2Qi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xEU-MM-CGe" secondAttribute="leading" id="VGr-gZ-eSi"/>
+                            <constraint firstItem="a8X-Vt-Ggy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xEU-MM-CGe" secondAttribute="leading" id="cce-gq-T8P"/>
+                            <constraint firstItem="xEU-MM-CGe" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iT1-Ca-2Qi" secondAttribute="trailing" id="d3h-uP-f4f"/>
                             <constraint firstItem="xEU-MM-CGe" firstAttribute="trailing" secondItem="hfp-W3-9UP" secondAttribute="trailing" constant="20" id="f5W-k6-gx4"/>
                             <constraint firstItem="hfp-W3-9UP" firstAttribute="centerX" secondItem="zWG-ZI-1bA" secondAttribute="centerX" id="fjg-PR-9bQ"/>
+                            <constraint firstItem="n0m-sN-ie5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xEU-MM-CGe" secondAttribute="leading" symbolic="YES" id="r3x-28-E4U"/>
                             <constraint firstItem="xEU-MM-CGe" firstAttribute="trailing" secondItem="n0m-sN-ie5" secondAttribute="trailing" constant="20" id="vfE-Ja-kCF"/>
                             <constraint firstItem="a8X-Vt-Ggy" firstAttribute="top" secondItem="hfp-W3-9UP" secondAttribute="bottom" constant="10" id="wv2-cY-HWp"/>
                             <constraint firstItem="iT1-Ca-2Qi" firstAttribute="centerX" secondItem="zWG-ZI-1bA" secondAttribute="centerX" id="yG6-Ce-x4L"/>
@@ -352,7 +361,7 @@
             </objects>
             <point key="canvasLocation" x="1374" y="1521"/>
         </scene>
-        <!--Location View Controller-->
+        <!--Notification-->
         <scene sceneID="SKg-3b-R7b">
             <objects>
                 <viewController storyboardIdentifier="LocationViewController" id="mWm-YG-cRp" customClass="LocationViewController" customModule="NetworkBasic" customModuleProvider="target" sceneMemberID="viewController">
@@ -380,10 +389,11 @@
                             <constraint firstItem="QNy-pt-Oa4" firstAttribute="leading" secondItem="29x-qC-h9R" secondAttribute="leading" constant="20" id="ya3-XJ-bWG"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Notification" id="B6v-2t-YRE"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HHA-wM-7Lc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4889.8550724637689" y="122.54464285714285"/>
+            <point key="canvasLocation" x="3" y="-226"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ny3-uc-ReP">
@@ -391,20 +401,22 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="P46-ZN-m6X" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="78U-c0-HcW">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="wDW-Jn-dO7"/>
-                        <segue destination="Coe-to-vUc" kind="relationship" relationship="viewControllers" id="lZj-Tk-wAv"/>
                         <segue destination="ucT-6a-ejs" kind="relationship" relationship="viewControllers" id="tUb-uB-mQX"/>
                         <segue destination="6Qj-EF-i87" kind="relationship" relationship="viewControllers" id="Lsj-ap-mVU"/>
                         <segue destination="awQ-Ml-xyK" kind="relationship" relationship="viewControllers" id="BNB-pF-eSa"/>
+                        <segue destination="mWm-YG-cRp" kind="relationship" relationship="viewControllers" id="HN3-af-qw3"/>
+                        <segue destination="Coe-to-vUc" kind="relationship" relationship="viewControllers" id="lZj-Tk-wAv"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ai1-av-CP9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-907.24637681159425" y="122.54464285714285"/>
+            <point key="canvasLocation" x="-1948" y="123"/>
         </scene>
     </scenes>
     <resources>

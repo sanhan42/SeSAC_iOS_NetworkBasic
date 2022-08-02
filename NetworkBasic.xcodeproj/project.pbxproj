@@ -24,6 +24,7 @@
 		BFB67D2D289384FD008DD8AE /* SCDream3.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB67D24289384FD008DD8AE /* SCDream3.otf */; };
 		BFB67D2E289384FD008DD8AE /* SCDream4.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB67D25289384FD008DD8AE /* SCDream4.otf */; };
 		BFB67D2F289384FD008DD8AE /* SCDream5.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB67D26289384FD008DD8AE /* SCDream5.otf */; };
+		BFE5E95F2898BD2500AA9AEB /* BoxOfficeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE5E95E2898BD2500AA9AEB /* BoxOfficeModel.swift */; };
 		BFEE35F02890DD7C00749F76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE35EF2890DD7C00749F76 /* AppDelegate.swift */; };
 		BFEE35F22890DD7C00749F76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE35F12890DD7C00749F76 /* SceneDelegate.swift */; };
 		BFEE35F42890DD7C00749F76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE35F32890DD7C00749F76 /* ViewController.swift */; };
@@ -55,6 +56,7 @@
 		BFB67D24289384FD008DD8AE /* SCDream3.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SCDream3.otf; sourceTree = "<group>"; };
 		BFB67D25289384FD008DD8AE /* SCDream4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SCDream4.otf; sourceTree = "<group>"; };
 		BFB67D26289384FD008DD8AE /* SCDream5.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SCDream5.otf; sourceTree = "<group>"; };
+		BFE5E95E2898BD2500AA9AEB /* BoxOfficeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeModel.swift; sourceTree = "<group>"; };
 		BFEE35EC2890DD7C00749F76 /* NetworkBasic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkBasic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFEE35EF2890DD7C00749F76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFEE35F12890DD7C00749F76 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				BFEE36052890E4D300749F76 /* ListTableViewCell.swift */,
 				BFEE36062890E4D300749F76 /* ListTableViewCell.xib */,
 				BFEE36032890E1FB00749F76 /* SearchViewController.swift */,
+				BFE5E95E2898BD2500AA9AEB /* BoxOfficeModel.swift */,
 				BFEE35F82890DD7D00749F76 /* Assets.xcassets */,
 				BFEE35FA2890DD7D00749F76 /* LaunchScreen.storyboard */,
 				BFEE35FD2890DD7D00749F76 /* Info.plist */,
@@ -263,6 +266,7 @@
 				BF35CBC72897E6DB00AAC3C5 /* BeerViewController.swift in Sources */,
 				BFF7C3A628923AD40050230A /* WebViewController.swift in Sources */,
 				BFEE35F02890DD7C00749F76 /* AppDelegate.swift in Sources */,
+				BFE5E95F2898BD2500AA9AEB /* BoxOfficeModel.swift in Sources */,
 				BFEE36042890E1FB00749F76 /* SearchViewController.swift in Sources */,
 				BF847B032897527D0098F83E /* ReuseableViewProtocol.swift in Sources */,
 				BFF7C3A2289223800050230A /* LottoViewController.swift in Sources */,

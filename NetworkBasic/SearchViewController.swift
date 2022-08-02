@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Alamofire
+import SwiftyJSON
 /*
  Swift Protocol
  - Delegate
@@ -17,6 +19,18 @@ import UIKit
  3. 1번과 2번 연결고리 작업
  */
 class SearchViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchTableView: UITableView!
+    
+    var list: [BoxOfficeModel] = []
+    var yesterday: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        formatter.locale = Locale(identifier: "ko")
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        return formatter.string(from: Date().addingTimeInterval(-84600))
+    }
+    
     func configureView() {
         searchTableView.backgroundColor = .clear
         searchTableView.separatorColor = . clear
@@ -25,8 +39,36 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
     func configureLabel() {
     }
     
-    @IBOutlet weak var searchTableView: UITableView!
-    
+    func requestBoxOffice(text: String) {
+        /* 각 json value -> list -> tabelView */
+        // 배열 초기화
+        self.list.removeAll()
+        
+        let url = "\(EndPoint.boxOfficeURL)key=\(APIKey.BOXOFFICE)&targetDt=\(text)"
+        AF.request(url, method: .get).validate(statusCode: 200..<300).responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                print(json)
+                
+                // 배열에 데이터 추가
+                /*for i in 0...9 {
+                    self.list.append(json["boxOfficeResult"]["dailyBoxOfficeList"][i]["movieNm"].stringValue)
+                } */
+                for movie in json["boxOfficeResult"]["dailyBoxOfficeList"].arrayValue {
+                    let data = BoxOfficeModel(movieTitle: movie["movieNm"].stringValue, releaseDate:  movie["openDt"].stringValue, totalCount: movie["audiAcc"].stringValue)
+                    self.list.append(data)
+                }
+                
+                // 테이블뷰 갱신
+                self.searchTableView.reloadData()
+                print(self.list)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         searchTableView.backgroundColor = .clear
@@ -36,10 +78,13 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
         // 테이블뷰가 사용할 테이블뷰 셀(XIB) 등록
         // (XIB: Xml Interface Builder <= NIB)
         searchTableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
+        
+        searchBar.delegate = self
+        requestBoxOffice(text: yesterday)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,8 +93,15 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         cell.backgroundColor = .clear
         cell.titleLabel.font = .boldSystemFont(ofSize: 22)
-        cell.titleLabel.text = "HELLO"
+        cell.titleLabel.text = "\(list[indexPath.row].movieTitle) : \(list[indexPath.row].releaseDate)"
+        
         return cell
     }
     
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        requestBoxOffice(text: searchBar.text!) // 추후에 옵셔널 바인딩, 8글자, 숫자, 날짜로 변경 시 유효한 형태의 값인지 확인 등의 처리를 해줘야 함.
+    }
 }

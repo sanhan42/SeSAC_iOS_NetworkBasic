@@ -34,6 +34,18 @@ enum StoryboardName {
     static let setting = "Setting"
 }
 
+struct APIKey {
+    static let BOXOFFICE = "c2ad5bc0821ed8971e020de1fe4c2f97"
+    static let NAVER_ID = "Yg1JQP1nZ9jO3ff987Ck"
+    static let NAVER_SECRET = "d2Pcl3nXWP"
+}
+
+struct EndPoint {
+    static let boxOfficeURL = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?"
+    static let lottoURL = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber"
+    static let translateURL = "https://openapi.naver.com/v1/papago/n2mt"
+}
+
 //enum FontName: String {
 //    case title = "SanFransisco"
 //    case body = "SanFransisco"    // 중복 불가
