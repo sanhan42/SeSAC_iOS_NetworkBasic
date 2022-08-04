@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		BF35CBC72897E6DB00AAC3C5 /* BeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35CBC62897E6DA00AAC3C5 /* BeerViewController.swift */; };
 		BF35CBCA2897E7BA00AAC3C5 /* ImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35CBC92897E7BA00AAC3C5 /* ImageView+Extension.swift */; };
+		BF57553F289AACB20054AB33 /* ImageSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF57553E289AACB20054AB33 /* ImageSearchCollectionViewCell.swift */; };
+		BF6BE78D289B506000E79FB4 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = BF6BE78C289B506000E79FB4 /* JGProgressHUD */; };
 		BF847B032897527D0098F83E /* ReuseableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF847B022897527D0098F83E /* ReuseableViewProtocol.swift */; };
 		BF847B062897579B0098F83E /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF847B052897579B0098F83E /* Constant.swift */; };
 		BF847B0828975FAB0098F83E /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF847B0728975FAB0098F83E /* UserDefaultsHelper.swift */; };
 		BF847B0B28977D280098F83E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BF847B0A28977D280098F83E /* Alamofire */; };
 		BF847B0E28977D340098F83E /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = BF847B0D28977D340098F83E /* SwiftyJSON */; };
+		BF96FB55289A09550035C467 /* ImageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF96FB54289A09550035C467 /* ImageSearchViewController.swift */; };
 		BFB67D1C28935D54008DD8AE /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB67D1B28935D54008DD8AE /* LocationViewController.swift */; };
 		BFB67D27289384FD008DD8AE /* SCDream7.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB67D1E289384FD008DD8AE /* SCDream7.otf */; };
 		BFB67D28289384FD008DD8AE /* SCDream2.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB67D1F289384FD008DD8AE /* SCDream2.otf */; };
@@ -43,9 +46,11 @@
 /* Begin PBXFileReference section */
 		BF35CBC62897E6DA00AAC3C5 /* BeerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerViewController.swift; sourceTree = "<group>"; };
 		BF35CBC92897E7BA00AAC3C5 /* ImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Extension.swift"; sourceTree = "<group>"; };
+		BF57553E289AACB20054AB33 /* ImageSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF847B022897527D0098F83E /* ReuseableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseableViewProtocol.swift; sourceTree = "<group>"; };
 		BF847B052897579B0098F83E /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		BF847B0728975FAB0098F83E /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		BF96FB54289A09550035C467 /* ImageSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchViewController.swift; sourceTree = "<group>"; };
 		BFB67D1B28935D54008DD8AE /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		BFB67D1E289384FD008DD8AE /* SCDream7.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SCDream7.otf; sourceTree = "<group>"; };
 		BFB67D1F289384FD008DD8AE /* SCDream2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SCDream2.otf; sourceTree = "<group>"; };
@@ -80,6 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF847B0E28977D340098F83E /* SwiftyJSON in Frameworks */,
+				BF6BE78D289B506000E79FB4 /* JGProgressHUD in Frameworks */,
 				BF847B0B28977D280098F83E /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,6 +153,8 @@
 				BFEE35F12890DD7C00749F76 /* SceneDelegate.swift */,
 				BFEE35F32890DD7C00749F76 /* ViewController.swift */,
 				BFEE35F52890DD7C00749F76 /* Main.storyboard */,
+				BF96FB54289A09550035C467 /* ImageSearchViewController.swift */,
+				BF57553E289AACB20054AB33 /* ImageSearchCollectionViewCell.swift */,
 				BF35CBC62897E6DA00AAC3C5 /* BeerViewController.swift */,
 				BFB67D1B28935D54008DD8AE /* LocationViewController.swift */,
 				BFF7C3A528923AD40050230A /* WebViewController.swift */,
@@ -191,6 +199,7 @@
 			packageProductDependencies = (
 				BF847B0A28977D280098F83E /* Alamofire */,
 				BF847B0D28977D340098F83E /* SwiftyJSON */,
+				BF6BE78C289B506000E79FB4 /* JGProgressHUD */,
 			);
 			productName = NetworkBasic;
 			productReference = BFEE35EC2890DD7C00749F76 /* NetworkBasic.app */;
@@ -223,6 +232,7 @@
 			packageReferences = (
 				BF847B0928977D280098F83E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				BF847B0C28977D340098F83E /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				BF6BE78B289B506000E79FB4 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
 			);
 			productRefGroup = BFEE35ED2890DD7C00749F76 /* Products */;
 			projectDirPath = "";
@@ -267,9 +277,11 @@
 				BFF7C3A628923AD40050230A /* WebViewController.swift in Sources */,
 				BFEE35F02890DD7C00749F76 /* AppDelegate.swift in Sources */,
 				BFE5E95F2898BD2500AA9AEB /* BoxOfficeModel.swift in Sources */,
+				BF96FB55289A09550035C467 /* ImageSearchViewController.swift in Sources */,
 				BFEE36042890E1FB00749F76 /* SearchViewController.swift in Sources */,
 				BF847B032897527D0098F83E /* ReuseableViewProtocol.swift in Sources */,
 				BFF7C3A2289223800050230A /* LottoViewController.swift in Sources */,
+				BF57553F289AACB20054AB33 /* ImageSearchCollectionViewCell.swift in Sources */,
 				BFB67D1C28935D54008DD8AE /* LocationViewController.swift in Sources */,
 				BFEE35F22890DD7C00749F76 /* SceneDelegate.swift in Sources */,
 				BF35CBCA2897E7BA00AAC3C5 /* ImageView+Extension.swift in Sources */,
@@ -496,6 +508,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BF6BE78B289B506000E79FB4 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		BF847B0928977D280098F83E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -515,6 +535,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BF6BE78C289B506000E79FB4 /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BF6BE78B289B506000E79FB4 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
+		};
 		BF847B0A28977D280098F83E /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BF847B0928977D280098F83E /* XCRemoteSwiftPackageReference "Alamofire" */;

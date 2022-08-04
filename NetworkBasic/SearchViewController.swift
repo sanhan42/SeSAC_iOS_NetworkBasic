@@ -9,6 +9,7 @@ import UIKit
 
 import Alamofire
 import SwiftyJSON
+import JGProgressHUD
 /*
  Swift Protocol
  - Delegate
@@ -25,11 +26,14 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
     var list: [BoxOfficeModel] = []
     var yesterday: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMdd"
+        formatter.dateFormat = "yyyyMMdd" // y와 Y의 차이
         formatter.locale = Locale(identifier: "ko")
         formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
-        return formatter.string(from: Date().addingTimeInterval(-84600))
+        //return formatter.string(from: Date().addingTimeInterval(-86400))
+        return formatter.string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!)
     }
+    // ProgressView
+    let hud = JGProgressHUD()
     
     func configureView() {
         searchTableView.backgroundColor = .clear
@@ -41,11 +45,14 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func requestBoxOffice(text: String) {
         /* 각 json value -> list -> tabelView */
+        
+        hud.show(in: view)
+        
         // 배열 초기화
         self.list.removeAll()
         
         let url = "\(EndPoint.boxOfficeURL)key=\(APIKey.BOXOFFICE)&targetDt=\(text)"
-        AF.request(url, method: .get).validate(statusCode: 200..<300).responseJSON { response in
+        AF.request(url, method: .get).validate(statusCode: 200..<300).responseData { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -62,13 +69,16 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
                 
                 // 테이블뷰 갱신
                 self.searchTableView.reloadData()
+                self.hud.dismiss(animated: true)
                 print(self.list)
                 
             case .failure(let error):
                 print(error)
+                self.hud.dismiss()
             }
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchTableView.backgroundColor = .clear
