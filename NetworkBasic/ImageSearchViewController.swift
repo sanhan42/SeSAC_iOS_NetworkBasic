@@ -17,7 +17,7 @@ class ImageSearchViewController: UIViewController, UICollectionViewDelegate, UIC
     var list: [URL] = []
     
     // 네트워크 요청할 시작 페이지 넘버
-    var starPage = 1
+    var startPage = 1
     var totalCount = 0
     
     override func viewDidLoad() {
@@ -34,9 +34,9 @@ class ImageSearchViewController: UIViewController, UICollectionViewDelegate, UIC
     func fetchImage(query: String) {
 //        self.list.removeAll()
         let text = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = EndPoint.imageSearchURL + "query=\(text)&display=30&start=\(starPage)&sort=sim"
+        let url = EndPoint.imageSearchURL + "query=\(text)&display=30&start=\(startPage)&sort=sim"
         let header: HTTPHeaders = ["X-Naver-Client-Id":APIKey.NAVER_ID, "X-Naver-Client-Secret":APIKey.NAVER_SECRET]
-        AF.request(url, method: .get, headers: header).validate(statusCode: 200...300).responseJSON { response in
+        AF.request(url, method: .get, headers: header).validate(statusCode: 200...300).responseData { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -88,10 +88,10 @@ class ImageSearchViewController: UIViewController, UICollectionViewDelegate, UIC
 extension ImageSearchViewController: UICollectionViewDataSourcePrefetching {
     // 셀이 화면에 보이기 직전에 필요한 리소스를 미리 다운 받는 기능
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        print("=========\(indexPaths)")
+//        print("=========\(indexPaths)")
         for indexPath in indexPaths {
             if list.count - 1 == indexPath.item && list.count < totalCount {
-                starPage += 30
+                startPage += 30
                 fetchImage(query: searchBar.text!)
             }
         }
@@ -99,7 +99,7 @@ extension ImageSearchViewController: UICollectionViewDataSourcePrefetching {
     
     // 주로 작업을 취소할 때 사용. (직접 취소하는 기능을 구현해주어야 한다.)
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        print("!!!!취소!!!!!\(indexPaths)")
+//        print("!!!!취소!!!!!\(indexPaths)")
     }
 }
 
@@ -107,19 +107,30 @@ extension ImageSearchViewController: UISearchBarDelegate {
     // 검색 버튼 클릭 시 실행. (return키 누름)
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let word = searchBar.text else { return }
-        list.removeAll()
-        starPage = 1
-//        imageCollectionView.scrollToItem(at: [0,0], at: .top, animated: true)
-        fetchImage(query: word)
+            list.removeAll()
+            startPage = 1
+            fetchImage(query: word)
+            if imageCollectionView.numberOfItems(inSection: 0) != 0  {
+                imageCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            }
+            // 아래 셀을 그려주는 함수 안에서 이미지를 불러오는 곳에서 다음과 같은 오류가 발생한다.
+            // Thread 1: Fatal error: Index out of range
+            // 찾아봤지만 결국 포기... 동기, 비동기 배우고 수정해야 할 것 같다ㅠㅠㅠㅠ
     }
     
-    // 취소 버튼 눌렀을 때 실행
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        list.removeAll()
-//        imageCollectionView.reloadData()
-//        searchBar.text = ""
+    // 취소 버튼 눌렀을 때, searchBar의 Text Editing을 끝냄
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        searchBar.endEditing(true)
+        list.removeAll()
+        searchBar.text = ""
+        imageCollectionView.reloadData()
         searchBar.setShowsCancelButton(false, animated: true)
     }
+    
+//    // Text Editing이 끝날 때 실행 (서치바에 커서가 사라질 때)
+//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+//
+//    }
     
     // 서치바에 커서가 깜박이기 시작할 때 실행
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
