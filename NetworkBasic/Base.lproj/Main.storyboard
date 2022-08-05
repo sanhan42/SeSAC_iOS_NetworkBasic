@@ -449,6 +449,31 @@
                                     <action selector="notificationButtonClicked:" destination="mWm-YG-cRp" eventType="touchUpInside" id="deN-IQ-Ahv"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yZi-MS-E3g">
+                                <rect key="frame" x="87" y="267" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="516-P8-u74">
+                                <rect key="frame" x="87" y="350" width="240" height="214"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ul-8j-QPk">
+                                <rect key="frame" x="87" y="599" width="240" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="downloadImage:" destination="mWm-YG-cRp" eventType="touchUpInside" id="KNO-aP-OOP"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="m7c-EV-dQF">
+                                <rect key="frame" x="196" y="267" width="131" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="29x-qC-h9R"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -459,10 +484,13 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Notification" id="B6v-2t-YRE"/>
+                    <connections>
+                        <outlet property="imageView" destination="516-P8-u74" id="uzv-MO-xrG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HHA-wM-7Lc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3" y="-226"/>
+            <point key="canvasLocation" x="2.8985507246376816" y="-226.33928571428569"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ny3-uc-ReP">

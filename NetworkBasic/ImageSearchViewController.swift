@@ -14,7 +14,7 @@ class ImageSearchViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var list: [URL] = []
+    var list: [String] = []
     
     // 네트워크 요청할 시작 페이지 넘버
     var startPage = 1
@@ -32,26 +32,35 @@ class ImageSearchViewController: UIViewController, UICollectionViewDelegate, UIC
     
     // fetchImage, requestImage, callImage, getImage... => respense에 따라 네이밍을 설정하는 편
     func fetchImage(query: String) {
-//        self.list.removeAll()
-        let text = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = EndPoint.imageSearchURL + "query=\(text)&display=30&start=\(startPage)&sort=sim"
-        let header: HTTPHeaders = ["X-Naver-Client-Id":APIKey.NAVER_ID, "X-Naver-Client-Secret":APIKey.NAVER_SECRET]
-        AF.request(url, method: .get, headers: header).validate(statusCode: 200...300).responseData { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                self.totalCount = json["total"].intValue
-                for item in json["items"].arrayValue {
-                    guard let url = URL(string: item["link"].stringValue) else { return }
-                    self.list.append(url)
-                }
-                // 서버통신 받는 시점에서 URL, UIImage 변환을 할 건지 => 서버 통신 시간 오래 걸림.
-                // 셀에서 URL, UIImage 변환을 할 건지 => 이 방식이 일반적이다. 서버 통신을 최대한 빠르게 마무리하고, 데이터 변환 작업은 다른 곳에서 처리.
-            case .failure(let error):
-                print(error)
+        ImageSearchAPIManager.shared.fetchImageData(query: query, startPage: startPage) { totalCount, list in
+            self.totalCount = totalCount
+            self.list.append(contentsOf: list)
+            DispatchQueue.main.async {
+                self.imageCollectionView.reloadData()
             }
-            self.imageCollectionView.reloadData() // 까먹지 말자!!
         }
+        /* ImageSearchAPIManager 파일을 만들어 나눔*/
+//        let text = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+//        let url = EndPoint.imageSearchURL + "query=\(text)&display=30&start=\(startPage)&sort=sim"
+//        let header: HTTPHeaders = ["X-Naver-Client-Id":APIKey.NAVER_ID, "X-Naver-Client-Secret":APIKey.NAVER_SECRET]
+//        AF.request(url, method: .get, headers: header).validate(statusCode: 200...300).responseData { response in
+//            switch response.result {
+//            case .success(let value):
+//                let json = JSON(value)
+//                self.totalCount = json["total"].intValue
+////                for item in json["items"].arrayValue {
+////                    guard let url = URL(string: item["link"].stringValue) else { return }
+////                    self.list.append(url)
+////                }
+//                let newResult = json["items"].arrayValue.map{$0["link"].stringValue}
+//                self.list.append(contentsOf: newResult)
+//                // 서버통신 받는 시점에서 URL, UIImage 변환을 할 건지 => 서버 통신 시간 오래 걸림.
+//                // 셀에서 URL, UIImage 변환을 할 건지 => 이 방식이 일반적이다. 서버 통신을 최대한 빠르게 마무리하고, 데이터 변환 작업은 다른 곳에서 처리.
+//            case .failure(let error):
+//                print(error)
+//            }
+//            self.imageCollectionView.reloadData() // 까먹지 말자!!
+//        }
     }
    
     func setCollectionViewLayout() {
@@ -65,6 +74,20 @@ class ImageSearchViewController: UIViewController, UICollectionViewDelegate, UIC
         layout.minimumInteritemSpacing = spacing
         imageCollectionView.collectionViewLayout = layout
     }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return list.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:ImageSearchCollectionViewCell.reuseIdentifier, for: indexPath) as? ImageSearchCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        guard let url = URL(string: self.list[indexPath.row]) else { return cell }
+        cell.resultImageView.load(url: url)
+        return cell
+    }
+    
     /*
     // 페이지네이션 방법1. 컬렉션뷰가 특정 셀을 그리려는 시점에 호출되는 메서드.
     // 마지막 셀에 사용자가 위치해있는지 명확하게 확인하기가 어려움.
@@ -112,10 +135,8 @@ extension ImageSearchViewController: UISearchBarDelegate {
             fetchImage(query: word)
             if imageCollectionView.numberOfItems(inSection: 0) != 0  {
                 imageCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                imageCollectionView.reloadData()
             }
-            // 아래 셀을 그려주는 함수 안에서 이미지를 불러오는 곳에서 다음과 같은 오류가 발생한다.
-            // Thread 1: Fatal error: Index out of range
-            // 찾아봤지만 결국 포기... 동기, 비동기 배우고 수정해야 할 것 같다ㅠㅠㅠㅠ
     }
     
     // 취소 버튼 눌렀을 때, searchBar의 Text Editing을 끝냄
@@ -135,19 +156,6 @@ extension ImageSearchViewController: UISearchBarDelegate {
     // 서치바에 커서가 깜박이기 시작할 때 실행
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(list.count)
-        return list.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:ImageSearchCollectionViewCell.reuseIdentifier, for: indexPath) as? ImageSearchCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        cell.resultImageView.load(url: list[indexPath.row])
-        return cell
     }
 }
 
